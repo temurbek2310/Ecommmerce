@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import divan from '../assets/singleProduct/Group 95.png'
 import { FaFacebook, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
@@ -16,8 +17,21 @@ import productFirst from '../assets/home/products/Mask group.svg'
 import productSecond from '../assets/home/products/Granite dining table with dining chair 1.png'
 import productThree from '../assets/home/products/Mask group.png'
 import productFour from '../assets/home/products/Plain console with teak mirror 1.png'
+import CartModal from '../components/CartModal'
 
 const SingleProduct = () => {
+    const [count, setCount] = useState(0);
+
+    function decrement() {
+        if (count > 0) {
+            setCount(count - 1);
+        }
+    }
+
+    function increment() {
+        setCount(count + 1);
+    }
+
     return (
         <>
             <Helmet>
@@ -88,17 +102,15 @@ const SingleProduct = () => {
                                 </div>
                                 <div className="flex items-center">
                                     <div className='flex'>
-                                        <button
+                                        <button onClick={decrement}
                                             className="px-4 py-2 text-lg border rounded-l"> -
                                         </button>
-                                        <span className="px-4 py-2 text-lg border-t border-b">1</span>
-                                        <button
+                                        <span className="px-4 py-2 text-lg border-t border-b">{count}</span>
+                                        <button onClick={increment}
                                             className="px-4 py-2 text-lg border rounded-r">+
                                         </button>
                                     </div>
-                                    <button className="ml-5 px-4 py-2 text-lg border-black border rounded-md">
-                                        Add To Cart
-                                    </button>
+                                    <CartModal />
                                 </div>
                                 <hr />
                                 <div className="space-y-2 leading-[60px]">
